@@ -5,18 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BRF Hammarby Strand – Nyckeltalsjämförelse</title>
   <style>
-    :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --card-border: #334155;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-warm: #f59e0b;
-      --accent-danger: #f87171;
-      --accent-success: #4ade80;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -25,75 +13,77 @@
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text-main);
+      background-color: #0b1120;
+      color: #f8fafc;
       overflow: hidden;
-      height: 100vh;
       width: 100vw;
+      height: 100vh;
     }
 
     /* Lösenordsskärm */
     #lock-screen {
       position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.96);
-      backdrop-filter: blur(12px);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0b1120;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
+      z-index: 9999;
     }
 
     .lock-box {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      background: #1e293b;
+      border: 1px solid #334155;
       padding: 2.5rem;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 420px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
       text-align: center;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
     }
 
     .lock-box h2 {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       margin-bottom: 0.5rem;
+      color: #fff;
     }
 
     .lock-box p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
+      color: #94a3b8;
+      font-size: 0.85rem;
       margin-bottom: 1.5rem;
     }
 
     .lock-box input {
       width: 100%;
-      padding: 0.85rem 1rem;
-      border-radius: 8px;
-      border: 1px solid var(--card-border);
+      padding: 0.8rem;
+      border-radius: 6px;
+      border: 1px solid #475569;
       background: #0f172a;
       color: #fff;
-      font-size: 1.1rem;
+      font-size: 1rem;
       text-align: center;
       margin-bottom: 1rem;
       outline: none;
     }
 
     .lock-box input:focus {
-      border-color: var(--accent);
+      border-color: #38bdf8;
     }
 
     .lock-box button {
       width: 100%;
-      padding: 0.85rem;
-      border-radius: 8px;
+      padding: 0.8rem;
+      border-radius: 6px;
       border: none;
-      background: var(--accent);
-      color: #0f172a;
+      background: #38bdf8;
+      color: #0b1120;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.95rem;
       cursor: pointer;
-      transition: background 0.2s;
     }
 
     .lock-box button:hover {
@@ -101,86 +91,80 @@
     }
 
     .error-msg {
-      color: var(--accent-danger);
-      font-size: 0.85rem;
+      color: #f87171;
+      font-size: 0.8rem;
       margin-top: 0.75rem;
       display: none;
     }
 
-    /* Presentationscontainer */
+    /* Presentation */
     #deck {
-      height: 100vh;
       width: 100vw;
+      height: 100vh;
       position: relative;
     }
 
     .slide {
       position: absolute;
-      inset: 0;
-      padding: 4rem 5rem 6rem;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 3.5rem 5rem 5rem;
       display: none;
       flex-direction: column;
       justify-content: flex-start;
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
     }
 
     .slide.active {
       display: flex;
-      opacity: 1;
-    }
-
-    .slide-header {
-      margin-bottom: 2rem;
     }
 
     .slide-badge {
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--accent);
+      color: #38bdf8;
       font-weight: 700;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.3rem;
     }
 
-    .slide-header h2 {
-      font-size: 2.2rem;
-      font-weight: 700;
+    .slide h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
     }
 
-    .slide-content {
-      flex: 1;
-      display: flex;
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
       gap: 2rem;
-      align-items: stretch;
+      flex: 1;
+      min-height: 0;
     }
 
-    /* Tabeller och kort */
-    .table-container {
-      flex: 2;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 1rem 1.5rem;
+    .table-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
       overflow-y: auto;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      text-align: left;
+      font-size: 0.9rem;
     }
 
     th, td {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--card-border);
-      font-size: 0.95rem;
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid #334155;
+      text-align: left;
     }
 
     th {
-      color: var(--text-muted);
-      font-weight: 600;
-      font-size: 0.85rem;
+      color: #94a3b8;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -190,144 +174,105 @@
       font-variant-numeric: tabular-nums;
     }
 
-    .diff-pos {
-      color: var(--accent-danger);
-      font-weight: 600;
-    }
+    .diff-warn { color: #f87171; font-weight: 600; }
+    .diff-good { color: #4ade80; font-weight: 600; }
 
-    .diff-neg {
-      color: var(--accent-success);
-      font-weight: 600;
-    }
-
-    .insight-panel {
-      flex: 1.1;
+    .cards-col {
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
     }
 
-    .insight-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
       padding: 1.25rem 1.5rem;
     }
 
-    .insight-card.danger {
-      border-left: 4px solid var(--accent-danger);
+    .card.danger { border-left: 4px solid #f87171; }
+    .card.warning { border-left: 4px solid #f59e0b; }
+    .card.success { border-left: 4px solid #4ade80; }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
     }
 
-    .insight-card.warning {
-      border-left: 4px solid var(--accent-warm);
-    }
-
-    .insight-card.success {
-      border-left: 4px solid var(--accent-success);
-    }
-
-    .insight-card h3 {
-      font-size: 1.05rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .insight-card p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
+    .card p {
+      color: #94a3b8;
+      font-size: 0.85rem;
       line-height: 1.5;
     }
 
-    /* Titelsida specifik layout */
-    .title-slide {
+    /* Titelsida */
+    .title-wrapper {
       display: flex;
-      flex-direction: row;
       align-items: center;
+      justify-content: space-between;
+      height: 80%;
       gap: 4rem;
-      height: 100%;
-      padding: 4rem 6rem;
     }
 
-    .title-left {
-      flex: 1.2;
-    }
-
-    .title-left h1 {
-      font-size: 3.2rem;
+    .title-text h1 {
+      font-size: 3rem;
       line-height: 1.15;
       margin-bottom: 1rem;
     }
 
-    .title-left .subtitle {
-      font-size: 1.25rem;
-      color: var(--text-muted);
+    .title-text p {
+      font-size: 1.2rem;
+      color: #94a3b8;
       margin-bottom: 2rem;
-      line-height: 1.4;
+      max-width: 600px;
     }
 
-    .meta-tag {
-      display: inline-block;
-      padding: 0.35rem 0.85rem;
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      color: var(--accent);
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-    }
-
-    .title-right {
-      flex: 1;
-      height: 70%;
+    .photo-frame {
+      width: 420px;
+      height: 380px;
+      border-radius: 14px;
+      border: 1px solid #334155;
+      overflow: hidden;
+      background: #1e293b;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .title-right img {
+    .photo-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 16px;
-      border: 1px solid var(--card-border);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     }
 
-    /* Navigeringskontroller */
+    /* Kontroller */
     .controls {
       position: fixed;
-      bottom: 2rem;
-      right: 3rem;
+      bottom: 1.5rem;
+      right: 2rem;
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid #334155;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.75rem;
       z-index: 100;
-      background: rgba(30, 41, 59, 0.8);
-      backdrop-filter: blur(8px);
-      padding: 0.5rem 1rem;
-      border-radius: 30px;
-      border: 1px solid var(--card-border);
     }
 
     .controls button {
-      background: transparent;
+      background: none;
       border: none;
-      color: var(--text-main);
-      font-size: 1.2rem;
+      color: #fff;
+      font-size: 1.1rem;
       cursor: pointer;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      transition: background 0.2s;
-    }
-
-    .controls button:hover {
-      background: rgba(255, 255, 255, 0.1);
+      padding: 0.2rem 0.5rem;
     }
 
     .controls span {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      min-width: 45px;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      min-width: 40px;
       text-align: center;
     }
   </style>
@@ -335,4 +280,270 @@
 <body>
 
   <!-- Lösenordsruta -->
-  <div id
+  <div id="lock-screen">
+    <div class="lock-box">
+      <h2>BRF Hammarby Strand</h2>
+      <p>Internrevisorns rapport & nyckeltalsanalys</p>
+      <input type="password" id="pwd" placeholder="Ange lösenord" autofocus>
+      <button onclick="unlock()">Lås upp presentation</button>
+      <div id="pwd-err" class="error-msg">Fel lösenord. Försök igen.</div>
+    </div>
+  </div>
+
+  <div id="deck">
+
+    <!-- Slide 1 -->
+    <div class="slide active">
+      <div class="slide-badge">BRF Hammarby Strand · Internrevision</div>
+      <div class="title-wrapper">
+        <div class="title-text">
+          <h1>Ekonomisk jämförelse med Brf Sjöstaden</h1>
+          <p>En genomlysning av fastighetsvolymer, kostnadsavvikelser och oanvänd intäktspotential.</p>
+          <div style="color: #38bdf8; font-size: 0.95rem; font-weight: 600;">Föredragande: Internrevisor</div>
+        </div>
+        <div class="photo-frame">
+          <img src="balkong.jpg" alt="Hammarby Sjöstad" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'padding:2rem;text-align:center;color:#64748b;font-size:0.9rem;\'>Placera balkong.jpg i samma mapp om du vill visa fotot här.</div>'">
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide">
+      <div class="slide-badge">Översikt & Fastighetsdata</div>
+      <h2>Struktur, Ytor & Skuldsättning</h2>
+      <div class="content-grid">
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Nyckeltal</th>
+                <th class="num">Brf Sjöstaden</th>
+                <th class="num">Hammarby Strand</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Antal lägenheter</td><td class="num">131</td><td class="num">216</td></tr>
+              <tr><td>Garageplatser (bil)</td><td class="num">57</td><td class="num">89</td></tr>
+              <tr><td>BTA (kvm)</td><td class="num">13 250</td><td class="num">19 542</td></tr>
+              <tr><td>Lägenhetsyta (kvm)</td><td class="num">10 019</td><td class="num">17 902</td></tr>
+              <tr><td>Nettoomsättning (tkr)</td><td class="num">10 890</td><td class="num">19 839</td></tr>
+              <tr><td>Skuld / brf-kvm</td><td class="num">4 556 kr</td><td class="num diff-warn">5 919 kr</td></tr>
+              <tr><td>Räntekänslighet</td><td class="num">5 %</td><td class="num diff-warn">6 %</td></tr>
+              <tr><td>Årsavgift / kvm brf</td><td class="num">809 kr</td><td class="num diff-warn">1 014 kr</td></tr>
+              <tr><td>Årsavgift andel av rörelseint.</td><td class="num">85 %</td><td class="num diff-warn">91 %</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cards-col">
+          <div class="card danger">
+            <h3>+25 % högre årsavgift</h3>
+            <p>Våra medlemmar betalar 1 014 kr/kvm jämfört med 809 kr/kvm i grannföreningen[cite: 3]. Skuldsättningen per kvm är dessutom 30 % högre[cite: 3].</p>
+          </div>
+          <div class="card warning">
+            <h3>Högt avgiftsberoende (91 %)</h3>
+            <p>91 % av våra intäkter kommer direkt från avgifter[cite: 3]. Sjöstaden hämtar en betydligt större andel av intäkterna från garage och externa källor[cite: 3].</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide">
+      <div class="slide-badge">Intäktspotential</div>
+      <h2>Garageintäkter – Vår största resurs</h2>
+      <div class="content-grid">
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Post</th>
+                <th class="num">Sjöstaden</th>
+                <th class="num">Hammarby Strand</th>
+                <th class="num">Differens</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Antal platser</td><td class="num">57</td><td class="num">89</td><td class="num">+32 st</td></tr>
+              <tr><td>Årlig intäkt / plats</td><td class="num">22 797 kr</td><td class="num">12 646 kr</td><td class="num diff-warn">-10 151 kr</td></tr>
+              <tr><td>Månadshyra (snitt)</td><td class="num">~1 900 kr/mån</td><td class="num">~1 054 kr/mån</td><td class="num diff-warn">-846 kr/mån</td></tr>
+              <tr style="background:#172554;">
+                <td><strong>Totala garageintäkter</strong></td>
+                <td class="num"><strong>1 299 tkr</strong></td>
+                <td class="num"><strong>1 125 tkr</strong></td>
+                <td class="num diff-warn"><strong>-174 tkr</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cards-col">
+          <div class="card success">
+            <h3>+903 000 kr i årlig intäktspotential</h3>
+            <p>Sjöstaden får in mer pengar än oss trots att de har 32 färre platser[cite: 3]. Om vi justerar våra hyror till kvarterets marknadsnivå (~1 900 kr/mån) ökar våra intäkter med ca 903 000 kr per år.</p>
+          </div>
+          <div class="card warning">
+            <h3>Motsvarar 50 kr/kvm i avgift</h3>
+            <p>Denna intäktsökning motsvarar en sänkning (eller utebliven höjning) av bostadsrättsavgifterna med cirka 50 kr per kvm lägenhetsyta[cite: 3].</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide">
+      <div class="slide-badge">Kostnadsöversikt</div>
+      <h2>Huvudkategorier (kr / kvm BTA)</h2>
+      <div class="content-grid">
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Kategori</th>
+                <th class="num">Sjöstaden</th>
+                <th class="num">Hammarby Strand</th>
+                <th class="num">Avvikelse</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>A) Reparationer & Underhåll</td><td class="num">93 kr</td><td class="num">104 kr</td><td class="num diff-warn">+11,3 %</td></tr>
+              <tr><td>B) Driftskostnader totalt</td><td class="num">424 kr</td><td class="num">501 kr</td><td class="num diff-warn">+18,0 %</td></tr>
+              <tr><td>C) Drift exkl. tomträttsavgäld</td><td class="num">312 kr</td><td class="num">380 kr</td><td class="num diff-warn">+21,9 %</td></tr>
+              <tr style="background:#451a03;">
+                <td><strong>E) Administrationskostnader</strong></td>
+                <td class="num"><strong>32 kr</strong></td>
+                <td class="num"><strong>52 kr</strong></td>
+                <td class="num diff-warn"><strong>+60,7 %</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cards-col">
+          <div class="card danger">
+            <h3>Administrationen är 61 % dyrare</h3>
+            <p>Trots att vi är en större förening betalar vi 52 kr/kvm BTA i administration mot grannens 32 kr[cite: 3]. Det innebär en merkostnad på ca 390 000 kr varje år[cite: 3].</p>
+          </div>
+          <div class="card warning">
+            <h3>Drift exklusive avgäld (+22 %)</h3>
+            <p>Skillnaden förklaras inte av tomträtten[cite: 3]. Den rena fastighetsdriften per kvadratmeter ligger 22 % högre än i Sjöstaden[cite: 3].</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide">
+      <div class="slide-badge">Detaljanalys</div>
+      <h2>Utvalda analysposter (kr / kvm BTA)</h2>
+      <div class="content-grid">
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Post</th>
+                <th class="num">Sjöstaden</th>
+                <th class="num">Hammarby Strand</th>
+                <th class="num">Avvikelse</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#450a0a;"><td><strong>Försäkring</strong></td><td class="num">10 kr</td><td class="num">24 kr</td><td class="num diff-warn"><strong>+143,2 %</strong></td></tr>
+              <tr style="background:#450a0a;"><td><strong>Kabel / Bredband</strong></td><td class="num">21 kr</td><td class="num">31 kr</td><td class="num diff-warn"><strong>+48,8 %</strong></td></tr>
+              <tr><td>Sopor</td><td class="num">22 kr</td><td class="num">29 kr</td><td class="num diff-warn">+29,4 %</td></tr>
+              <tr><td>Fastighetsskatt</td><td class="num">22 kr</td><td class="num">28 kr</td><td class="num diff-warn">+26,9 %</td></tr>
+              <tr><td>VA</td><td class="num">33 kr</td><td class="num">41 kr</td><td class="num diff-warn">+23,0 %</td></tr>
+              <tr><td>Fjärrvärme + El</td><td class="num">164 kr</td><td class="num">177 kr</td><td class="num diff-warn">+7,7 %</td></tr>
+              <tr><td>Tomträttsavgäld</td><td class="num">113 kr</td><td class="num">121 kr</td><td class="num diff-warn">+7,3 %</td></tr>
+              <tr><td>Styrelsearvode</td><td class="num">17 kr</td><td class="num">17 kr</td><td class="num">+2,1 %</td></tr>
+              <tr style="background:#052e16;"><td><strong>Förvaltningsarvode</strong></td><td class="num">21 kr</td><td class="num">11 kr</td><td class="num diff-good"><strong>-46,4 %</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cards-col">
+          <div class="card danger">
+            <h3>Akut: Upphandla försäkringen</h3>
+            <p>Att betala 24 kr mot grannens 10 kr/kvm innebär en onödig årlig kostnad på ca 270 000 kr[cite: 3]. Denna post ska omförhandlas omgående.</p>
+          </div>
+          <div class="card success">
+            <h3>Stordriftsfördel finns</h3>
+            <p>Vårt förvaltningsarvode är 46 % lägre per kvm än Sjöstadens[cite: 3]. Det bevisar att vi kan förhandla fram stordriftsfördelar när vi agerar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide">
+      <div class="slide-badge">Slutsats</div>
+      <h2>Internrevisorns rekommendationer</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 1rem;">
+        <div class="card success">
+          <h3 style="color:#4ade80;">1. Justera garagehyran</h3>
+          <p>Höj platserna successivt mot kvarterets marknadshyra (~1 900 kr/mån)[cite: 3]. Tillför ca <strong>900 tkr/år</strong> direkt i kassan.</p>
+        </div>
+        <div class="card danger">
+          <h3 style="color:#f87171;">2. Upphandla försäkring</h3>
+          <p>Ta in offerter från minst 3 bolag inför nästa förfallodag. Besparingspotential: ca <strong>200–250 tkr/år</strong>.</p>
+        </div>
+        <div class="card warning">
+          <h3 style="color:#f59e0b;">3. Omförhandla bredband</h3>
+          <p>Konkurrensutsätt nuvarande leverantör. Med 216 lägenheter ska vi ha lägre kostnad per anslutning än Sjöstaden[cite: 3].</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 1.5rem; background: #0f172a; border-color: #38bdf8;">
+        <h3 style="color: #38bdf8;">Sammanlagd potential: > 1,2 miljoner kr årligen</h3>
+        <p>Genom att stänga intäktsgapet på garaget och åtgärda avvikelserna på försäkring och media kan styrelsen stärka föreningens kassaflöde rejält, kompensera för räntekänsligheten och säkra långsiktig avgiftsstabilitet[cite: 3].</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="controls">
+    <button onclick="prev()">&#8592;</button>
+    <span id="counter">1 / 6</span>
+    <button onclick="next()">&#8594;</button>
+    <button onclick="toggleFS()">⛶</button>
+  </div>
+
+  <script>
+    function unlock() {
+      const val = document.getElementById('pwd').value;
+      if (val === 'Bajen') {
+        document.getElementById('lock-screen').style.display = 'none';
+      } else {
+        document.getElementById('pwd-err').style.display = 'block';
+      }
+    }
+
+    document.getElementById('pwd').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') unlock();
+    });
+
+    const slides = document.querySelectorAll('.slide');
+    let idx = 0;
+
+    function show(n) {
+      slides.forEach((s, i) => s.classList.toggle('active', i === n));
+      document.getElementById('counter').innerText = (n + 1) + ' / ' + slides.length;
+    }
+
+    function next() {
+      if (idx < slides.length - 1) { idx++; show(idx); }
+    }
+
+    function prev() {
+      if (idx > 0) { idx--; show(idx); }
+    }
+
+    function toggleFS() {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (document.getElementById('lock-screen').style.display !== 'none') return;
+      if (e.key === 'ArrowRight' || e.key === ' ') next();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'f' || e.key === 'F') toggleFS();
+    });
+  </script>
+</body>
+</html>
